@@ -1,0 +1,23 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: crm-service
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: 1234
+    username: dev
+    url: jdbc:postgresql://localhost:5431/crm
+
+  sql:
+    init:
+      schema-locations: classpath:schema.sql
+#      data-locations: classpath:data.sql
+      data-locations:
+      mode: always
+
+  docker:
+    compose:
+      file: crm-service/compose.yaml

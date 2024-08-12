@@ -1,0 +1,18 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: chat-service
+
+  data:
+    mongodb:
+      database: messages
+      port: 27017
+      username: dev
+      password: 1234
+      authentication-database: admin
+
+  docker:
+    compose:
+      file: chat-service/compose.yaml
