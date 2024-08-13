@@ -4,10 +4,3 @@ services:
     ports:
       - 6379:6379
       - 8001:8001
-  rabbitmq:
-    image: rabbitmq:latest
-    environment:
-      - RABBITMQ_DEFAULT_PASS=1234
-      - RABBITMQ_DEFAULT_USER=dev
-    ports:
-      - 5672
