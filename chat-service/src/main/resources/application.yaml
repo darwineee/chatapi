@@ -12,7 +12,3 @@ spring:
       username: dev
       password: 1234
       authentication-database: admin
-
-  docker:
-    compose:
-      file: chat-service/compose.yaml

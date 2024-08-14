@@ -2,7 +2,7 @@ create table if not exists Clients (
     id serial primary key,
     public_id varchar(30) not null,
     name varchar(50) not null,
-    master_api_token char(36) not null
+    api_key char(36) not null
 );
 
 create table if not exists Users (

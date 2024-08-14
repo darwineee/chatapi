@@ -17,6 +17,7 @@ spring:
       data-locations: classpath:data.sql
       mode: always
 
-  docker:
-    compose:
-      file: crm-service/compose.yaml
+  data:
+    redis:
+      host: localhost
+      port: 6379

@@ -25,6 +25,7 @@ repositories {
 }
 
 dependencies {
+    implementation(projects.distributedCore)
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.springframework.boot:spring-boot-starter-web")
     compileOnly("org.projectlombok:lombok")
