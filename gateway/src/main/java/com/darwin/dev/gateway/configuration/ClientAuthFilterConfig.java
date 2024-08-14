@@ -1,6 +1,6 @@
 package com.darwin.dev.gateway.configuration;
 
-import com.darwin.dev.distributed.model.Client;
+import com.darwin.dev.distributed.crm.Client;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;

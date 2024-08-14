@@ -1,7 +1,9 @@
 package com.darwin.dev.crmservice.core.repository;
 
-import com.darwin.dev.distributed.model.Client;
+import com.darwin.dev.distributed.crm.Client;
+
+import java.util.List;
 
 public interface IClientRepository {
-    Client findByPublicId(String id);
+    List<Client> findAll();
 }

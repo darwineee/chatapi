@@ -1,9 +1,7 @@
 package com.darwin.dev.crmservice.core.service;
 
-import com.darwin.dev.distributed.model.Client;
-
-import java.util.List;
+import com.darwin.dev.crmservice.core.dto.client.GetAllClientResponse;
 
 public interface IClientService {
-    List<Client> getAllClients();
+    GetAllClientResponse getAllClients();
 }
