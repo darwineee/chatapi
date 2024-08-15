@@ -19,10 +19,8 @@ public class ServiceStartupConfig {
     @Bean
     public CommandLineRunner redisClientInfoInitializer() {
         List<Client> clients = clientService.getAllClients().clients();
-        return args -> {
-            clients.forEach(client -> {
-                redisTemplate.opsForValue().setIfAbsent(client.apiKey(), client);
-            });
-        };
+        return args -> clients.forEach(client ->
+                redisTemplate.opsForValue().setIfAbsent(client.apiKey(), client)
+        );
     }
 }

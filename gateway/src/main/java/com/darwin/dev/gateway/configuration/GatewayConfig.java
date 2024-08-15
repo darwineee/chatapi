@@ -49,7 +49,6 @@ public class GatewayConfig {
                                         .setRateLimiter(crmRateLimit)
                                         .setKeyResolver(keyResolver)
                                 )
-                                .rewritePath("/api/v1/crm/(?<remaining>.*)", "/api/v1/${remaining}")
                         )
                         .uri("http://localhost:8081")
                 )

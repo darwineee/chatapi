@@ -9,4 +9,7 @@ import java.util.List;
 public record GetListUserResponse(
         List<User> users
 ) {
+    public static GetListUserResponse from(List<User> users) {
+        return GetListUserResponse.builder().users(users).build();
+    }
 }

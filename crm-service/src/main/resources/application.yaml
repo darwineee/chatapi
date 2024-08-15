@@ -9,7 +9,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     password: 1234
     username: dev
-    url: jdbc:postgresql://localhost:5431/crm
+    url: jdbc:postgresql://localhost:5432/crm
 
   sql:
     init:
