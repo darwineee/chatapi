@@ -1,11 +1,11 @@
-package com.darwin.dev.crmservice.core.dto.user;
+package com.darwin.dev.crmservice.core.dto.channel.request;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class CreateUserRequest{
+public class UpdateChannelRequest {
     private int clientId;
     private String name;
 }

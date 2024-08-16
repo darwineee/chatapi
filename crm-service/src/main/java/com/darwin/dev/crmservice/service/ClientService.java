@@ -1,7 +1,7 @@
 package com.darwin.dev.crmservice.service;
 
-import com.darwin.dev.crmservice.core.dto.client.GetAllClientResponse;
-import com.darwin.dev.crmservice.core.dto.client.GetClientInfoResponse;
+import com.darwin.dev.crmservice.core.dto.client.response.GetAllClientResponse;
+import com.darwin.dev.crmservice.core.dto.client.response.GetClientInfoResponse;
 import com.darwin.dev.crmservice.core.exception.InvalidClientId;
 import com.darwin.dev.crmservice.core.repository.IClientRepository;
 import com.darwin.dev.crmservice.core.service.IClientService;

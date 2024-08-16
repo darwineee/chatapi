@@ -1,10 +1,14 @@
 package com.darwin.dev.crmservice.controller.api.v1;
 
-import com.darwin.dev.crmservice.core.dto.user.*;
+import com.darwin.dev.crmservice.core.dto.user.request.CreateUserRequest;
+import com.darwin.dev.crmservice.core.dto.user.request.GetListUserRequest;
+import com.darwin.dev.crmservice.core.dto.user.request.GetUserRequest;
+import com.darwin.dev.crmservice.core.dto.user.response.CreateUserResponse;
+import com.darwin.dev.crmservice.core.dto.user.response.GetListUserResponse;
+import com.darwin.dev.crmservice.core.dto.user.response.GetUserResponse;
 import com.darwin.dev.crmservice.core.exception.InvalidUserId;
 import com.darwin.dev.crmservice.service.UserService;
 import com.darwin.dev.distributed.util.RequestCst;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -28,17 +32,16 @@ public class UserController {
 
     @GetMapping("/users/{userId}")
     ResponseEntity<GetUserResponse> getUser(
-            @PathVariable int userId
+            @PathVariable int userId,
+            @RequestParam(RequestCst.CLIENT_ID) int clientId
     ) throws InvalidUserId {
-        GetUserResponse rsp = userService.getUser(new GetUserRequest(userId));
+        GetUserResponse rsp = userService.getUser(new GetUserRequest(userId, clientId));
         return ResponseEntity.ok(rsp);
     }
 
     @PostMapping("/users")
     ResponseEntity<CreateUserResponse> createUser(
-            @RequestBody
-            @Valid
-            CreateUserRequest request,
+            @RequestBody CreateUserRequest request,
             @RequestParam(RequestCst.CLIENT_ID) int clientId
     ) {
         request.setClientId(clientId);

@@ -1,6 +1,11 @@
 package com.darwin.dev.crmservice.service;
 
-import com.darwin.dev.crmservice.core.dto.user.*;
+import com.darwin.dev.crmservice.core.dto.user.request.CreateUserRequest;
+import com.darwin.dev.crmservice.core.dto.user.request.GetListUserRequest;
+import com.darwin.dev.crmservice.core.dto.user.request.GetUserRequest;
+import com.darwin.dev.crmservice.core.dto.user.response.CreateUserResponse;
+import com.darwin.dev.crmservice.core.dto.user.response.GetListUserResponse;
+import com.darwin.dev.crmservice.core.dto.user.response.GetUserResponse;
 import com.darwin.dev.crmservice.core.exception.InvalidUserId;
 import com.darwin.dev.crmservice.core.repository.IUserRepository;
 import com.darwin.dev.crmservice.core.service.IUserService;
@@ -25,7 +30,7 @@ public class UserService implements IUserService {
 
     @Override
     public GetUserResponse getUser(GetUserRequest request) throws InvalidUserId {
-        Optional<User> user = userRepository.findById(request.userId());
+        Optional<User> user = userRepository.findById(request.userId(), request.clientId());
         if (user.isEmpty()) {
             throw new InvalidUserId();
         }
@@ -39,7 +44,7 @@ public class UserService implements IUserService {
                 .clientId(request.getClientId())
                 .build();
         int userId = userRepository.save(newUser);
-        User insertedUser = userRepository.findById(userId).orElse(newUser);
+        User insertedUser = userRepository.findById(request.getClientId(), userId).orElse(newUser);
         return CreateUserResponse.from(insertedUser);
     }
 }

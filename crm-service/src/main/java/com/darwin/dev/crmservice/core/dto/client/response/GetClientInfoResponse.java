@@ -1,4 +1,4 @@
-package com.darwin.dev.crmservice.core.dto.client;
+package com.darwin.dev.crmservice.core.dto.client.response;
 
 import com.darwin.dev.distributed.crm.Client;
 import lombok.Builder;

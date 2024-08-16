@@ -21,27 +21,54 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public List<User> findAll(int clientId) {
-        return jdbcClient.sql("select * from users where client_id = :clientId")
+        String sql = """
+                select * from users
+                where client_id = :clientId
+                """;
+        return jdbcClient.sql(sql)
                 .param("clientId", clientId)
                 .query(User.class)
                 .list();
     }
 
     @Override
-    public Optional<User> findById(int userId) {
-        return jdbcClient.sql("select * from users where id = :userId")
+    public Optional<User> findById(int clientId, int userId) {
+        String sql = """
+                select * from users
+                where id = :userId and client_id = :clientId
+                """;
+        return jdbcClient.sql(sql)
                 .param("userId", userId)
+                .param("clientId", clientId)
                 .query(User.class)
                 .optional();
     }
 
     @Override
     public int save(User user) {
+        String sql = """
+                insert into users (name, client_id)
+                values(:name, :clientId)
+                """;
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcClient.sql("insert into users (name, client_id) values(:name, :clientId)")
+        jdbcClient.sql(sql)
                 .param("name", user.name())
                 .param("clientId", user.clientId())
                 .update(keyHolder, "id");
         return Objects.requireNonNull(keyHolder.getKey()).intValue();
+    }
+
+    @Override
+    public int update(User user) {
+        String sql = """
+                update users
+                set name = :name
+                where id = :id and client_id = :clientId
+                """;
+        jdbcClient.sql(sql)
+                .param("name", user.name())
+                .param("clientId", user.clientId())
+                .update();
+        return user.id();
     }
 }
