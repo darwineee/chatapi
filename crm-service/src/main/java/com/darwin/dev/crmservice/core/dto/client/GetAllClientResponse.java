@@ -9,4 +9,9 @@ import java.util.List;
 public record GetAllClientResponse(
         List<Client> clients
 ) {
+    public static GetAllClientResponse from(List<Client> clients) {
+        return GetAllClientResponse.builder()
+                .clients(clients)
+                .build();
+    }
 }

@@ -1,5 +1,6 @@
 package com.darwin.dev.crmservice.controller;
 
+import com.darwin.dev.distributed.exception.ApiException;
 import com.darwin.dev.distributed.util.ErrCode;
 import com.darwin.dev.distributed.wrapper.Error;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,15 @@ public class GlobalExceptionHandler {
             errors.put(field, message);
         });
         var body = new Error<>(ErrCode.FIELD_VALIDATION, errors);
+        return ResponseEntity.badRequest().body(body);
+    }
+
+    @ExceptionHandler(ApiException.class)
+    public ResponseEntity<Error<String>> handle(ApiException ex) {
+        Error<String> body = new Error<>(
+                ex.getErrCode(),
+                ex.getMessage()
+        );
         return ResponseEntity.badRequest().body(body);
     }
 }

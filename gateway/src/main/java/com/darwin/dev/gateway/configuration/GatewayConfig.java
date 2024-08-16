@@ -20,7 +20,7 @@ public class GatewayConfig {
 
     public GatewayConfig(
             @Qualifier("crm-rl") RedisRateLimiter crmRl,
-            @Qualifier("crm-rl") RedisRateLimiter chatRl
+            @Qualifier("chat-rl") RedisRateLimiter chatRl
     ) {
         this.crmRateLimit = crmRl;
         this.chatRateLimit = chatRl;
@@ -43,7 +43,11 @@ public class GatewayConfig {
     ) {
         return builder.routes()
                 .route("crm-service-v1", r -> r
-                        .path("/api/v1/crm/**")
+                        .path(
+                                "/api/v1/users/**",
+                                "/api/v1/channels/**",
+                                "/api/v1/info/**"
+                        )
                         .filters(f -> f
                                 .requestRateLimiter(rl -> rl
                                         .setRateLimiter(crmRateLimit)
