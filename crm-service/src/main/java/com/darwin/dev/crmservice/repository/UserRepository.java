@@ -1,7 +1,7 @@
 package com.darwin.dev.crmservice.repository;
 
 import com.darwin.dev.crmservice.core.repository.IUserRepository;
-import com.darwin.dev.distributed.crm.User;
+import com.darwin.dev.distributed.model.crm.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.simple.JdbcClient;

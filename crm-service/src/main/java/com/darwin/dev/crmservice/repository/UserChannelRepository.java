@@ -1,8 +1,8 @@
 package com.darwin.dev.crmservice.repository;
 
 import com.darwin.dev.crmservice.core.repository.IUserChannelRepository;
-import com.darwin.dev.distributed.crm.Channel;
-import com.darwin.dev.distributed.crm.User;
+import com.darwin.dev.distributed.model.crm.Channel;
+import com.darwin.dev.distributed.model.crm.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
@@ -18,7 +18,7 @@ public class UserChannelRepository implements IUserChannelRepository {
     @Override
     public List<User> findAllUsersInChannel(int channelId) {
         String sql = """
-                select * from users u
+                select u.id, u.client_id, u.name from users u
                 join userchannel uc
                 on u.id = uc.user_id
                 where uc.channel_id = :channelId
@@ -32,7 +32,7 @@ public class UserChannelRepository implements IUserChannelRepository {
     @Override
     public List<Channel> findAllChannelsOfUser(int userId) {
         String sql = """
-                select * from channels c
+                select c.id, c.client_id, c.name from channels c
                 join userchannel uc
                 on c.id = uc.channel_id
                 where uc.user_id = :userId

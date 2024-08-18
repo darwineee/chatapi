@@ -1,6 +1,6 @@
 package com.darwin.dev.crmservice.core.dto.channel.response;
 
-import com.darwin.dev.distributed.crm.Channel;
+import com.darwin.dev.distributed.model.crm.Channel;
 import lombok.Builder;
 
 @Builder

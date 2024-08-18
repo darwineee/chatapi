@@ -1,10 +1,10 @@
-package com.darwin.dev.crmservice.core.exception;
+package com.darwin.dev.crmservice.core.exception.resource;
 
-import com.darwin.dev.distributed.exception.ApiException;
+import com.darwin.dev.distributed.exception.ResourceNotFoundException;
 import com.darwin.dev.distributed.util.ErrCode;
 import com.darwin.dev.distributed.util.Msg;
 
-public class InvalidChannelId extends ApiException {
+public class InvalidChannelId extends ResourceNotFoundException {
 
     @Override
     public String getMessage() {

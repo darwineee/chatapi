@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UpdateChannelRequest {
+    private int channelId;
     private int clientId;
     private String name;
 }

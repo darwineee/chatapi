@@ -1,7 +1,7 @@
 package com.darwin.dev.crmservice.repository;
 
 import com.darwin.dev.crmservice.core.repository.IClientRepository;
-import com.darwin.dev.distributed.crm.Client;
+import com.darwin.dev.distributed.model.crm.Client;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;

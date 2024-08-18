@@ -1,4 +1,4 @@
-package com.darwin.dev.distributed.crm;
+package com.darwin.dev.distributed.model.crm;
 
 import lombok.Builder;
 

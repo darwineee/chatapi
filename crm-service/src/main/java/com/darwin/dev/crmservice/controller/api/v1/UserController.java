@@ -4,10 +4,10 @@ import com.darwin.dev.crmservice.core.dto.user.request.CreateUserRequest;
 import com.darwin.dev.crmservice.core.dto.user.request.GetListUserRequest;
 import com.darwin.dev.crmservice.core.dto.user.request.GetUserRequest;
 import com.darwin.dev.crmservice.core.dto.user.response.CreateUserResponse;
-import com.darwin.dev.crmservice.core.dto.user.response.GetListUserResponse;
+import com.darwin.dev.crmservice.core.dto.user.response.GetUsersResponse;
 import com.darwin.dev.crmservice.core.dto.user.response.GetUserResponse;
-import com.darwin.dev.crmservice.core.exception.InvalidUserId;
-import com.darwin.dev.crmservice.service.UserService;
+import com.darwin.dev.crmservice.core.exception.resource.InvalidUserId;
+import com.darwin.dev.crmservice.core.service.IUserService;
 import com.darwin.dev.distributed.util.RequestCst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,21 +16,21 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private final IUserService userService;
 
-    @GetMapping("/users")
-    ResponseEntity<GetListUserResponse> getListUser(
+    @GetMapping
+    ResponseEntity<GetUsersResponse> getUsers(
             @RequestParam(RequestCst.CLIENT_ID) int clientId
     ) {
-        GetListUserResponse rsp = userService.getListUserOfClient(new GetListUserRequest(clientId));
+        GetUsersResponse rsp = userService.getListUserOfClient(new GetListUserRequest(clientId));
         return ResponseEntity.ok(rsp);
     }
 
-    @GetMapping("/users/{userId}")
+    @GetMapping("/{userId}")
     ResponseEntity<GetUserResponse> getUser(
             @PathVariable int userId,
             @RequestParam(RequestCst.CLIENT_ID) int clientId
@@ -39,7 +39,7 @@ public class UserController {
         return ResponseEntity.ok(rsp);
     }
 
-    @PostMapping("/users")
+    @PostMapping
     ResponseEntity<CreateUserResponse> createUser(
             @RequestBody CreateUserRequest request,
             @RequestParam(RequestCst.CLIENT_ID) int clientId

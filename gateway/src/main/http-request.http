@@ -14,10 +14,29 @@ Content-Type: application/json
 X-API-KEY: 2cbb1a9e-b0a4-4050-92e5-05a9706102f5
 
 {
-  "name": "Oggy the cat"
+  "name": "Hellboy6677"
 }
 
 ###
 GET http://localhost:8080/api/v1/info
+Content-Type: application/json
+X-API-KEY: 2cbb1a9e-b0a4-4050-92e5-05a9706102f5
+
+###
+POST http://localhost:8080/api/v1/channels
+Content-Type: application/json
+X-API-KEY: 2cbb1a9e-b0a4-4050-92e5-05a9706102f5
+
+{
+  "name": "No boss group"
+}
+
+###
+GET http://localhost:8080/api/v1/userchannel/users?channelId=1
+Content-Type: application/json
+X-API-KEY: 2cbb1a9e-b0a4-4050-92e5-05a9706102f5
+
+###
+POST http://localhost:8080/api/v1/userchannel/join?channelId=1&userId=1
 Content-Type: application/json
 X-API-KEY: 2cbb1a9e-b0a4-4050-92e5-05a9706102f5

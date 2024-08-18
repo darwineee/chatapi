@@ -28,7 +28,7 @@ public class GatewayConfig {
 
     @Bean
     public KeyResolver keyResolver() {
-        return exchange ->  {
+        return exchange -> {
             String ip = Optional.ofNullable(exchange.getRequest().getRemoteAddress())
                     .map(address -> address.getAddress().getHostAddress())
                     .orElse("unknown");
@@ -46,6 +46,7 @@ public class GatewayConfig {
                         .path(
                                 "/api/v1/users/**",
                                 "/api/v1/channels/**",
+                                "/api/v1/userchannel/**",
                                 "/api/v1/info/**"
                         )
                         .filters(f -> f

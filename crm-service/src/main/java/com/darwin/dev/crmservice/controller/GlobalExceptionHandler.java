@@ -1,8 +1,11 @@
 package com.darwin.dev.crmservice.controller;
 
+import com.darwin.dev.distributed.exception.ActionFailException;
 import com.darwin.dev.distributed.exception.ApiException;
+import com.darwin.dev.distributed.exception.ResourceNotFoundException;
 import com.darwin.dev.distributed.util.ErrCode;
 import com.darwin.dev.distributed.wrapper.Error;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -33,6 +36,18 @@ public class GlobalExceptionHandler {
                 ex.getErrCode(),
                 ex.getMessage()
         );
-        return ResponseEntity.badRequest().body(body);
+        if (ex instanceof ResourceNotFoundException) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(body);
+        } else if (ex instanceof ActionFailException) {
+            return ResponseEntity
+                    .internalServerError()
+                    .body(body);
+        } else {
+            return ResponseEntity
+                    .badRequest()
+                    .body(body);
+        }
     }
 }

@@ -1,7 +1,7 @@
 package com.darwin.dev.crmservice.repository;
 
 import com.darwin.dev.crmservice.core.repository.IChannelRepository;
-import com.darwin.dev.distributed.crm.Channel;
+import com.darwin.dev.distributed.model.crm.Channel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -69,14 +69,15 @@ public class ChannelRepository implements IChannelRepository {
     }
 
     @Override
-    public void delete(int clientId, int id) {
+    public boolean delete(int clientId, int id) {
         String sql = """
                 delete from channels
                 where id = :id and client_id = :clientId
                 """;
-        jdbcClient.sql(sql)
+        int rows = jdbcClient.sql(sql)
                 .param("clientId", clientId)
                 .param("id", id)
                 .update();
+        return rows > 0;
     }
 }

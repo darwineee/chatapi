@@ -1,11 +1,10 @@
 package com.darwin.dev.crmservice.core.dto.channel.request;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
 
-@Getter
-@Setter
-public class DeleteChannelRequest {
-    private int clientId;
-    private String name;
+@Builder
+public record DeleteChannelRequest(
+        int clientId,
+        int channelId
+) {
 }

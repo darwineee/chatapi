@@ -1,7 +1,7 @@
 package com.darwin.dev.crmservice.core.repository;
 
-import com.darwin.dev.distributed.crm.Channel;
-import com.darwin.dev.distributed.crm.User;
+import com.darwin.dev.distributed.model.crm.Channel;
+import com.darwin.dev.distributed.model.crm.User;
 
 import java.util.List;
 
