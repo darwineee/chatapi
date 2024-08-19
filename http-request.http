@@ -40,3 +40,28 @@ X-API-KEY: 2cbb1a9e-b0a4-4050-92e5-05a9706102f5
 POST http://localhost:8080/api/v1/userchannel/join?channelId=1&userId=1
 Content-Type: application/json
 X-API-KEY: 2cbb1a9e-b0a4-4050-92e5-05a9706102f5
+
+
+###
+WEBSOCKET ws://localhost:7001/api/v1/messages/chat.send
+X-API-KEY: 2cbb1a9e-b0a4-4050-92e5-05a9706102f5
+
+SEND
+{
+  "clientId": 0,
+  "channelId": 1,
+  "userId": 2,
+  "message": "hello"
+}
+
+###
+WEBSOCKET ws://localhost:8080/api/v1/messages/chat.receive
+X-API-KEY: 2cbb1a9e-b0a4-4050-92e5-05a9706102f5
+
+SEND
+{
+  "clientId": 0,
+  "channelId": 1
+}
+
+RECEIVE

@@ -1,6 +1,6 @@
 package com.darwin.dev.crmservice.core.dto.client.response;
 
-import com.darwin.dev.distributed.model.crm.Client;
+import com.darwin.dev.distributed.model.Client;
 import lombok.Builder;
 
 import java.util.List;

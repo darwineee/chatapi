@@ -26,8 +26,10 @@ repositories {
 
 dependencies {
     implementation(projects.distributedCore)
-    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("org.springframework.boot:spring-boot-starter-rsocket")
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
+    testImplementation("io.projectreactor:reactor-test")
     compileOnly("org.projectlombok:lombok")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     developmentOnly("org.springframework.boot:spring-boot-docker-compose")

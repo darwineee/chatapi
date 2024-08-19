@@ -1,7 +1,7 @@
 package com.darwin.dev.crmservice.configuration;
 
 import com.darwin.dev.crmservice.core.service.IClientService;
-import com.darwin.dev.distributed.model.crm.Client;
+import com.darwin.dev.distributed.model.Client;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;

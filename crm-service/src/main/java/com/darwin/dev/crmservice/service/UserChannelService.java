@@ -10,8 +10,8 @@ import com.darwin.dev.crmservice.core.exception.action.JoinChannelFailed;
 import com.darwin.dev.crmservice.core.exception.action.LeaveChannelFailed;
 import com.darwin.dev.crmservice.core.repository.IUserChannelRepository;
 import com.darwin.dev.crmservice.core.service.IUserChannelService;
-import com.darwin.dev.distributed.model.crm.Channel;
-import com.darwin.dev.distributed.model.crm.User;
+import com.darwin.dev.crmservice.core.model.Channel;
+import com.darwin.dev.crmservice.core.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

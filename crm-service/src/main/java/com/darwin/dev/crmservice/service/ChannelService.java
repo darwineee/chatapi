@@ -6,7 +6,7 @@ import com.darwin.dev.crmservice.core.exception.action.DeleteChannelFailed;
 import com.darwin.dev.crmservice.core.exception.resource.InvalidChannelId;
 import com.darwin.dev.crmservice.core.repository.IChannelRepository;
 import com.darwin.dev.crmservice.core.service.IChannelService;
-import com.darwin.dev.distributed.model.crm.Channel;
+import com.darwin.dev.crmservice.core.model.Channel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

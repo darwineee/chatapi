@@ -1,6 +1,6 @@
 package com.darwin.dev.crmservice.core.dto.user.response;
 
-import com.darwin.dev.distributed.model.crm.User;
+import com.darwin.dev.crmservice.core.model.User;
 import lombok.Builder;
 
 @Builder

@@ -1,8 +1,8 @@
 package com.darwin.dev.crmservice.repository;
 
 import com.darwin.dev.crmservice.core.repository.IUserChannelRepository;
-import com.darwin.dev.distributed.model.crm.Channel;
-import com.darwin.dev.distributed.model.crm.User;
+import com.darwin.dev.crmservice.core.model.Channel;
+import com.darwin.dev.crmservice.core.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;

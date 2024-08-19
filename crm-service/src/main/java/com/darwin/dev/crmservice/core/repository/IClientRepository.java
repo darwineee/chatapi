@@ -1,6 +1,6 @@
 package com.darwin.dev.crmservice.core.repository;
 
-import com.darwin.dev.distributed.model.crm.Client;
+import com.darwin.dev.distributed.model.Client;
 
 import java.util.List;
 import java.util.Optional;

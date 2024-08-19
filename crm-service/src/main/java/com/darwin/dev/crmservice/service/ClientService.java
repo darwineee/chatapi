@@ -5,7 +5,7 @@ import com.darwin.dev.crmservice.core.dto.client.response.GetClientInfoResponse;
 import com.darwin.dev.crmservice.core.exception.resource.InvalidClientId;
 import com.darwin.dev.crmservice.core.repository.IClientRepository;
 import com.darwin.dev.crmservice.core.service.IClientService;
-import com.darwin.dev.distributed.model.crm.Client;
+import com.darwin.dev.distributed.model.Client;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

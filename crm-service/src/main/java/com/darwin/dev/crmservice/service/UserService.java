@@ -9,7 +9,7 @@ import com.darwin.dev.crmservice.core.dto.user.response.GetUserResponse;
 import com.darwin.dev.crmservice.core.exception.resource.InvalidUserId;
 import com.darwin.dev.crmservice.core.repository.IUserRepository;
 import com.darwin.dev.crmservice.core.service.IUserService;
-import com.darwin.dev.distributed.model.crm.User;
+import com.darwin.dev.crmservice.core.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

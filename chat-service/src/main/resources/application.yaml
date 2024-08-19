@@ -7,8 +7,15 @@ spring:
 
   data:
     mongodb:
-      database: messages
-      port: 27017
-      username: dev
-      password: 1234
-      authentication-database: admin
+#      database: messages
+#      port: 27017
+#      username: dev
+#      password: 1234
+#      authentication-database: admin
+      uri: mongodb://dev:1234@localhost:27017/messages?authSource=admin&authMechanism=SCRAM-SHA-1
+
+  rsocket:
+    server:
+      port: 7001
+      mapping-path: /api/v1/messages
+      transport: websocket
