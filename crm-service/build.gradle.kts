@@ -26,7 +26,7 @@ repositories {
 }
 
 dependencies {
-    implementation(projects.distributedCore)
+    implementation(project(":distributed-core"))
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-web")

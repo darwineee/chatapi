@@ -1,10 +1,8 @@
 package com.darwin.dev.crmservice.core.dto.channel.request;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class UpdateChannelRequest {
     private int channelId;
     private int clientId;

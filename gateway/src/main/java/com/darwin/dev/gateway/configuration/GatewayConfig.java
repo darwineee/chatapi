@@ -65,7 +65,7 @@ public class GatewayConfig {
                                         .setKeyResolver(keyResolver)
                                 )
                         )
-                        .uri("ws://localhost:7001"))
+                        .uri("ws://localhost:8082"))
                 .build();
     }
 }

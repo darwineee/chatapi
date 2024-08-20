@@ -5,7 +5,11 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class GetMessagesRequest {
+public class SubscribeChannelRequest {
     private int clientId;
     private int channelId;
+
+    public String getRequestId() {
+        return clientId + "-" + channelId;
+    }
 }

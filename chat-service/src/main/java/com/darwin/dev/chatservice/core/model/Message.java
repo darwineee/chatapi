@@ -11,6 +11,7 @@ public record Message(
         int clientId,
         int channelId,
         int userId,
-        String message
+        String message,
+        long timestamp
 ) {
 }
