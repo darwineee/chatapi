@@ -12,6 +12,3 @@ spring:
       username: dev
       password: 1234
       authentication-database: admin
-logging:
-  level:
-    org.springframework.web.socket: TRACE

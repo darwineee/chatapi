@@ -1,4 +1,4 @@
-package com.darwin.dev.chatservice.core.dto;
+package com.darwin.dev.chatservice.core.dto.request;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

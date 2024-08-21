@@ -1,41 +1,43 @@
 package com.darwin.dev.chatservice.configuration;
 
-import com.darwin.dev.chatservice.core.dto.GetMessagesRequest;
-import com.darwin.dev.chatservice.core.dto.SendMessageRequest;
-import com.darwin.dev.chatservice.core.dto.SubscribeChannelRequest;
-import com.darwin.dev.chatservice.core.model.Message;
+import com.darwin.dev.chatservice.core.dto.request.GetMessagesRequest;
+import com.darwin.dev.chatservice.core.dto.request.SendMessageRequest;
+import com.darwin.dev.chatservice.core.dto.request.SubscribeChannelRequest;
+import com.darwin.dev.chatservice.core.model.SimpleMessage;
 import com.darwin.dev.chatservice.service.MessageService;
+import com.darwin.dev.distributed.util.Parser;
 import com.darwin.dev.distributed.util.RequestCst;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
-import org.springframework.web.socket.*;
+import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
 import java.net.URI;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class ChatReceiverSocketHandler extends TextWebSocketHandler {
-    private static final String SEND_PATH = "/chat-send";
-    private static final String SEND_RECEIVE = "/chat-receive";
+    private static final String CHAT_SEND = "/chat-send";
+    private static final String CHAT_RECEIVE = "/chat-receive";
     private static final String SUBSCRIBE = "/subscribe";
 
     private final MessageService messageService;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    private final HashMap<String, HashSet<WebSocketSession>> channelSubscribers = new HashMap<>();
-    private final HashMap<WebSocketSession, String> activeSessions = new HashMap<>();
+    private final HashMap<String, Set<WebSocketSession>> channelSubscribers = new HashMap<>();
+    private final HashMap<String, String> activeSessions = new HashMap<>();
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        log.info("afterConnectionEstablished");
+        activeSessions.put(session.getId(), null);
     }
 
     @Override
@@ -46,25 +48,20 @@ public class ChatReceiverSocketHandler extends TextWebSocketHandler {
         Assert.notNull(path, "Path must not be null");
         String query = uri.getQuery();
         Assert.notNull(query, "Query must not be null");
-        Map<String, String> queryParams = parseQuery(query);
+        Map<String, String> queryParams = Parser.parseQueryParam(query);
         int clientId = Integer.parseInt(queryParams.get(RequestCst.CLIENT_ID));
         String payload = message.getPayload();
-        if (path.contains(SEND_PATH)) handleSendRequest(payload, clientId);
-        else if (path.contains(SEND_RECEIVE)) handleGetRequest(session, payload, clientId);
+        if (path.contains(CHAT_SEND)) handleSendRequest(payload, clientId);
+        else if (path.contains(CHAT_RECEIVE)) handleReceiveRequest(session, payload, clientId);
         else if (path.contains(SUBSCRIBE)) handleSubscribeRequest(session, payload, clientId);
-    }
-
-    private Map<String, String> parseQuery(String query) {
-        return Arrays.stream(query.split("&"))
-                .map(param -> param.split("="))
-                .collect(Collectors.toMap(pair -> pair[0], pair -> pair.length > 1 ? pair[1] : ""));
     }
 
     private void handleSendRequest(String payload, int clientId) throws IOException {
         SendMessageRequest request = objectMapper.readValue(payload, SendMessageRequest.class);
         request.setClientId(clientId);
-        Message sentMsg = messageService.sendMessage(request);
-        HashSet<WebSocketSession> sessions = channelSubscribers.get(request.getRequestId());
+        SimpleMessage sentMsg = SimpleMessage.from(messageService.sendMessage(request));
+        Set<WebSocketSession> sessions = channelSubscribers.get(request.getRequestId());
+        if (sessions == null) return;
         TextMessage msg = new TextMessage(objectMapper.writeValueAsString(sentMsg));
         for (WebSocketSession wsSession : sessions) {
             if (wsSession.isOpen()) {
@@ -73,10 +70,13 @@ public class ChatReceiverSocketHandler extends TextWebSocketHandler {
         }
     }
 
-    private void handleGetRequest(WebSocketSession session, String payload, int clientId) throws IOException {
+    private void handleReceiveRequest(WebSocketSession session, String payload, int clientId) throws IOException {
         GetMessagesRequest request = objectMapper.readValue(payload, GetMessagesRequest.class);
         request.setClientId(clientId);
-        List<Message> messageList = messageService.getMessages(request);
+        List<SimpleMessage> messageList = messageService.getMessages(request)
+                .stream()
+                .map(SimpleMessage::from)
+                .toList();
         session.sendMessage(new TextMessage(objectMapper.writeValueAsString(messageList)));
     }
 
@@ -91,7 +91,7 @@ public class ChatReceiverSocketHandler extends TextWebSocketHandler {
         } else {
             channelSubscribers.get(subId).add(session);
         }
-        activeSessions.put(session, subId);
+        activeSessions.put(session.getId(), subId);
     }
 
     @Override
@@ -101,9 +101,10 @@ public class ChatReceiverSocketHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) {
-        if (activeSessions.containsKey(session)) {
-            String channelId = activeSessions.remove(session);
-            channelSubscribers.get(channelId).remove(session);
+        String channelId = activeSessions.remove(session.getId());
+        Set<WebSocketSession> subscribers = channelSubscribers.get(channelId);
+        if (subscribers != null) {
+            subscribers.remove(session);
         }
     }
 
