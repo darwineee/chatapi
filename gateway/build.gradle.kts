@@ -1,33 +1,16 @@
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
 plugins {
-    java
     id("org.springframework.boot") version "3.3.2"
     id("io.spring.dependency-management") version "1.1.6"
-    id("org.graalvm.buildtools.native") version "0.10.2"
 }
 
-group = "com.darwin.dev"
 version = "0.0.1-SNAPSHOT"
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
-}
-
-configurations {
-    compileOnly {
-        extendsFrom(configurations.annotationProcessor.get())
-    }
-}
-
-repositories {
-    mavenCentral()
-}
 
 extra["springCloudVersion"] = "2023.0.3"
 
 dependencies {
-    implementation(project(":distributed-core"))
+    implementation(projects.distributedCore)
     implementation("org.springframework.cloud:spring-cloud-starter-gateway")
     implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -47,6 +30,10 @@ dependencyManagement {
     }
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
+val uploadJar by tasks.registering(Exec::class) {
+    dependsOn(tasks.named("bootJar"))
+    val remoteHost = "ubuntu@3.104.79.169:/home/ubuntu/chatapi"
+    val pvkPath = "/home/darwin/Documents/macos-aws.pem"
+    val jarFile = tasks.getByName<BootJar>("bootJar").archiveFile.get().asFile
+    commandLine("scp", "-i", pvkPath, jarFile.absolutePath, remoteHost)
 }

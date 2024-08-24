@@ -1,7 +1,22 @@
-//enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "chatapi"
 
-include("gateway")
-include("crm-service")
-include("chat-service")
-include("distributed-core")
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+include(":gateway")
+include(":crm-service")
+include(":chat-service")
+include(":distributed-core")
