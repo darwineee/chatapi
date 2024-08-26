@@ -13,7 +13,7 @@ Project chat platform as a homework for day 4, Java backend class.
 
 ### Design
 #### Modules
-   - Springboot: gateway (port 8080), crm-service (port 8081), chat-service (port 8082), 
+   - Springboot: gateway (port 8089), crm-service (port 8081), chat-service (port 8082), 
    - Java library: distributed-core
 #### Database
 ![Database design](database_diagram.jpg)

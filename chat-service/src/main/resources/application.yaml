@@ -12,3 +12,8 @@ spring:
       username: dev
       password: 1234
       authentication-database: admin
+      host: localhost
+
+logging:
+  file:
+    name: logs/chat_service.log

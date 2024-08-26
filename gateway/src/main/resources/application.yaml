@@ -9,3 +9,7 @@ spring:
     redis:
       host: localhost
       port: 6379
+
+logging:
+  file:
+    name: logs/gateway.log

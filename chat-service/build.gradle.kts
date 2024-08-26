@@ -22,8 +22,7 @@ dependencies {
 
 val uploadJar by tasks.registering(Exec::class) {
     dependsOn(tasks.named("bootJar"))
-    val remoteHost = "ubuntu@3.104.79.169:/home/ubuntu/chatapi"
-    val pvkPath = "/home/darwin/Documents/macos-aws.pem"
+    val remote = "vps:/home/debian/chatapi"
     val jarFile = tasks.getByName<BootJar>("bootJar").archiveFile.get().asFile
-    commandLine("scp", "-i", pvkPath, jarFile.absolutePath, remoteHost)
+    commandLine("scp", jarFile.absolutePath, remote)
 }
